@@ -20,7 +20,22 @@ class Doctor
     end
 
     def self.find_by_speciality(str)
-        self.all.select { |ele| ele.speciality == str }
+        self.all.select { |doctor| doctor.speciality == str }
+    end
+
+    def patients
+        Patient.all.select { |patient| patient.doctor == self }
+    end
+
+    def discharge_patient(patient)
+        #set patients doc to nil
+        #only if patient belongs to doc
+        self.patients.each { |check_patient| patient.doctor = nil if patient == check_patient }
+    end
+
+    def transfer_patient(patient, doctor)
+        #change doctor only if they belong
+        self.patients.each { |check_patient| patient.doctor = doctor if patient == check_patient }
     end
 
 end

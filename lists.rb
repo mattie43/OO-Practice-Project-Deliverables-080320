@@ -10,15 +10,20 @@ doctors = [
 ]
 
 patients = [
-    {:name => "John", :age => 56},
-    {:name => "Bob", :age => 25},
-    {:name => "Steven", :age => 33},
-    {:name => "Anthony", :age => 20},
-    {:name => "Alicia", :age => 47},
-    {:name => "Tiffani", :age => 24},
-    {:name => "Caryn", :age => 19},
-    {:name => "Ryan", :age => 34}
+    {:name => "Mike", :age => 56},
+    {:name => "Liam", :age => 25},
+    {:name => "Noah", :age => 33},
+    {:name => "Will", :age => 20},
+    {:name => "Emma", :age => 47},
+    {:name => "Olivia", :age => 24},
+    {:name => "Logan", :age => 19},
+    {:name => "Sam", :age => 34}
 ]
 
-doctors.each { |ele| Doctor.new(ele[:name], ele[:speciality], ele[:years]) }
-patients.each { |ele| Patient.new(ele[:name], ele[:age]) }
+doctors.each { |doctor| Doctor.new(doctor[:name], doctor[:speciality], doctor[:years]) }
+patients.each { |patient| Patient.new(patient[:name], patient[:age]) }
+
+Patient.all.each do |patient|
+    random = rand(0..(Doctor.all.length-1))
+    patient.change_doctors(Doctor.all[random])
+end
