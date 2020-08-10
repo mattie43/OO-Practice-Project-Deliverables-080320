@@ -19,16 +19,15 @@ class Patient
     end
 
     def doctors
-        #Patient#doctors should return a list of Doctor instances associated with this patient through Appointments. 
-        #Try to ensure this list does not include duplicates.
-
-        # Why is .select not working here but .collect is???
-        Appointment.all.collect { |app| app.doctor if app.patient == self }.compact.uniq
+        Appointment.all.reduce([]) { |a, app| a << app.doctor if app.patient == self; a }
     end
 
     def create_appointment(doctor)
-        #Patient#create_appointment should create a new appointment between the current patient and a specified doctor
         Appointment.new(self, doctor)
+    end
+
+    def appointments
+        Appointment.all.select { |app| app.patient == self }
     end
 
     # def new_doctor(doctor)

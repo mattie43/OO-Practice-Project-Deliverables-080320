@@ -14,7 +14,6 @@ class Doctor
         @@all
     end
 
-    #Is this supossed to be called with a Doctor? wasn't sure to put with self.greet
     def greet
         puts "Welcome to the office! Please sit and wait for your turn!"
     end
@@ -24,14 +23,11 @@ class Doctor
     end
 
     def appointments
-        #Doctor#appointments should return a list of Appointment instances associated with this doctor
-        Appointment.all.collect { |app| app if app.doctor == self }.compact.uniq
+        Appointment.all.select { |app| app.doctor == self }
     end
 
     def patients
-        #Doctor#patients should return a list of Patient instances associated with this doctor through Appointments. 
-        #Try to ensure this list does not include duplicates.
-        Appointment.all.collect { |app| app.patient if app.doctor == self }.compact.uniq
+        self.appointments.map { |app| app.patient }.uniq
     end
 
     # def patients
@@ -39,13 +35,10 @@ class Doctor
     # end
 
     # def discharge_patient(patient)
-    #     #set patients doc to nil
-    #     #only if patient belongs to doc
     #     self.patients.each { |check_patient| patient.doctor = nil if patient == check_patient }
     # end
 
     # def transfer_patient(patient, doctor)
-    #     #change doctor only if they belong
     #     self.patients.each { |check_patient| patient.doctor = doctor if patient == check_patient }
     # end
 

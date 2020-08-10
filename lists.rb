@@ -18,6 +18,8 @@ Appointment.new(Patient.all[1], Doctor.all[1])
 Appointment.new(Patient.all[2], Doctor.all[2])
 Appointment.new(Patient.all[3], Doctor.all[3])
 Appointment.new(Patient.all[3], Doctor.all[3]) #repeat for tests
+Appointment.new(Patient.all[2], Doctor.all[3]) 
+Appointment.new(Patient.all[1], Doctor.all[3]) 
 
 # Patient.all.each do |patient|
 #     random = rand(0..(Doctor.all.length-1))
