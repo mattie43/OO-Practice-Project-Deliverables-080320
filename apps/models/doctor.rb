@@ -23,19 +23,30 @@ class Doctor
         self.all.select { |doctor| doctor.speciality == str }
     end
 
+    def appointments
+        #Doctor#appointments should return a list of Appointment instances associated with this doctor
+        Appointment.all.collect { |app| app if app.doctor == self }.compact.uniq
+    end
+
     def patients
-        Patient.all.select { |patient| patient.doctor == self }
+        #Doctor#patients should return a list of Patient instances associated with this doctor through Appointments. 
+        #Try to ensure this list does not include duplicates.
+        Appointment.all.collect { |app| app.patient if app.doctor == self }.compact.uniq
     end
 
-    def discharge_patient(patient)
-        #set patients doc to nil
-        #only if patient belongs to doc
-        self.patients.each { |check_patient| patient.doctor = nil if patient == check_patient }
-    end
+    # def patients
+    #     Patient.all.select { |patient| patient.doctor == self }
+    # end
 
-    def transfer_patient(patient, doctor)
-        #change doctor only if they belong
-        self.patients.each { |check_patient| patient.doctor = doctor if patient == check_patient }
-    end
+    # def discharge_patient(patient)
+    #     #set patients doc to nil
+    #     #only if patient belongs to doc
+    #     self.patients.each { |check_patient| patient.doctor = nil if patient == check_patient }
+    # end
+
+    # def transfer_patient(patient, doctor)
+    #     #change doctor only if they belong
+    #     self.patients.each { |check_patient| patient.doctor = doctor if patient == check_patient }
+    # end
 
 end
